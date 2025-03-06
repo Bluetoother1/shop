@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{{category.title}} {% endblock %}
+
+    
+{% block content %}
+
+<div class="container">
+   
+    <h1>Каталог товаров</h1>
+    <div class="product-list">
+        
+        {% for product in products %}
+        
+        <!-- Пример товара -->
+        <div class="product-item">
+            
+            <center><h3>{{ product.title }}</h3></center>
+            <center><img src="{{ product.image.url }}" alt="" ></center>
+            <center><p><h4>Товар из категории {{category.title}}</h4> </p></center>
+            <center><p class="price">₽{{ product.price }}</center></p>
+            <a href="{% url 'add_to_cart' product.id %}"><button class="add-to-cart">Добавить в корзину</button></a>
+        </div>
+        
+        
+        
+        {% endfor %}
+
+        
+</div>
+{% endblock  %}

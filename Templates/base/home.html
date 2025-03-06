@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %} Добро пожаловать {% endblock  %}
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container">
+<h1>Добро пожаловать в наш магазин {{ user }} </h1>
+<h5> Желаете повторить один из заказов? <a href="{% url 'history' %}"><button class="btn btn-info"> История заказов </button></a> </h5>
+</div>
+{% else %}
+<div class="container">
+<h1>Добро пожаловать в наш магазин Гость </h1>
+
+</div>
+{% endif %}
+{% endblock %}

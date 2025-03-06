@@ -1,0 +1,33 @@
+
+{% extends "base.html" %}
+{% block title %} Каталог товаров{% endblock  %}
+
+    
+{% block content %}
+
+<div class="container">
+   
+    <h1>Каталог товаров</h1>
+    <div class="product-list">
+        
+        {% for product in products %}
+        {% for category in categores %}
+        {% if category.id == product.category_id  %}
+        
+        <div class="product-item">
+            
+            <center><h3>{{ product.title }}</h3></center>
+            <center><img src="{{ product.image.url }}" alt="" ></center>
+            <center><p><h4>Товар из категории <a href="{{ category.id }}">{{category.title}}</a></h4> </p></center>
+            <center><p class="price">₽{{ product.price }}</center></p>
+            <a href="{% url 'add_to_cart' product.id %}"><button class="add-to-cart">Добавить в корзину</button></a>  
+        </div>
+        
+        
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+
+        
+</div>
+{% endblock  %}

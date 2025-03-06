@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Успех{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white text-center">
+                    <h1 class="card-title">Оплата прошла успешно!</h1>
+                </div>
+                <div class="card-body text-center">
+                    <p class="lead">Спасибо за ваш заказ <strong>#{{ order.id }}</strong>.</p>
+                    {% if bonus_points == 0 %}
+                    <p class="text-muted"> Бонусы уже начислены </p>
+                    <p class="text-muted">Ваш текущий баланс бонусов: <strong>{{ request.user.userprofile.bonus_points }}</strong>.</p>
+                    {% else %}
+                    <p class="text-muted">Вам начислено <strong>{{ bonus_points }}</strong> бонусных баллов.</p>
+                    <p class="text-muted">Ваш текущий баланс бонусов: <strong>{{ request.user.userprofile.bonus_points }}</strong>.</p>
+                    {% endif %}
+                    <a href="{% url 'home' %}" class="btn btn-primary mt-3">
+                        Вернуться на главную
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

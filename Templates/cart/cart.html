@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %} Корзина {% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Ваша корзина</h1>
+    {% if cart.items.all %}
+        <div class="product-list">
+            {% for item in cart.items.all %}
+                <div class="product-item">
+                    <center><h3>{{ item.product.title }} - {{ item.quantity }} шт</h3></center>
+                    <center><img src="{{ item.product.image.url }}" alt=""></center>
+                    <center><p>Стоимость: {{ item.total_price }} ₽</p></center>
+                    <center><a href="{% url 'remove_from_cart' item.id %}">Удалить</a></center>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    
+                    <form action="{% url 'create_order' %}" method="post" class="mb-4">
+                        {% csrf_token %}
+                        <div class="form-check mb-2">
+                            <input type="checkbox" class="form-check-input" id="use_bonus" name="use_bonus">
+                            <label class="form-check-label" for="use_bonus">Использовать бонусы</label>
+                        </div>
+                        <h4>Итоговая сумма: <span id="total_price">{{ cart.total_price }}</span> ₽</h4>
+                        <button type="submit" class="btn btn-primary btn-lg">Оплатить</button>
+                    </form>
+                    <h5 class="mt-4">Ваш текущий баланс бонусов: {{ request.user.userprofile.bonus_points }}.</h5>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p>Ваша корзина пуста.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
